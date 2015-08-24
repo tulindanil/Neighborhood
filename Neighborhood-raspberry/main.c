@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include <string.h>
 #include <unistd.h>
 #include <parse.h>
 
@@ -10,10 +11,10 @@ float getTemperature()
     char tmpData[6];   // Temp C * 1000 reported by device
     read(FileDescriptor, buf, 256);
     strncpy(tmpData, strstr(buf, "t=") + 2, 5);
-    CurrentTemp = strtod(tmpData, NULL);
+    float CurrentTemp = strtod(tmpData, NULL);
     CurrentTemp = CurrentTemp / 1000;
     close(FileDescriptor);
-    return (CurrentTemp);
+    return CurrentTemp;
 }
 
 int main(int argc, char *argv[])
