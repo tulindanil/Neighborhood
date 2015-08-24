@@ -13,8 +13,8 @@ float getTemperature()
     tmpData[5] = '\0';
     read(FileDescriptor, buf, 256);
     strncpy(tmpData, strstr(buf, "t=") + 2, 5);
-    float CurrentTemp = atof(tmpData);
-    CurrentTemp = CurrentTemp / 1000;
+    int CurrentTempd = atoi(tmpData);
+    float CurrentTemp = CurrentTempd / 1000;
     close(FileDescriptor);
     return CurrentTemp;
 }
