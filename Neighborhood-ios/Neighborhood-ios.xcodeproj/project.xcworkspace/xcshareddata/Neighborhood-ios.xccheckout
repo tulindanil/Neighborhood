@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>84F3F4D5-FC83-4E0B-A5B2-B54266DC1972</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>193B60D316653E32955D0AC2581CF93E52020C86</key>
+		<string>https://github.com/tulindanil/Neighborhood.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Neighborhood-ios/Neighborhood-ios.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>193B60D316653E32955D0AC2581CF93E52020C86</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tulindanil/Neighborhood.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>193B60D316653E32955D0AC2581CF93E52020C86</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>193B60D316653E32955D0AC2581CF93E52020C86</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Neighborhood</string>
+		</dict>
+	</array>
+</dict>
+</plist>
