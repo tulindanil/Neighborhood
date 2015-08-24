@@ -13,7 +13,7 @@ float getTemperature()
     tmpData[5] = '\0';
     read(FileDescriptor, buf, 256);
     strncpy(tmpData, strstr(buf, "t=") + 2, 5);
-    int CurrentTempd = atoi(tmpData);
+    float CurrentTempd = atoi(tmpData);
     float CurrentTemp = CurrentTempd / 1000;
     close(FileDescriptor);
     return CurrentTemp;
@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
 {
     ParseClient client = parseInitialize("VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU", "XCPG2OTVrapoymNGS5XGQIhsRM3F2tnVUgaceyec");
     
-//    int childpid = fork();
+    int childpid = fork();
     
-//    if (childpid == 0)
+    if (childpid == 0)
     {
         while (1)
         {
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         }
     }
     
-//    printf("CHILDPID: %d\n", childpid);
+    printf("CHILDPID: %d\n", childpid);
     
     return 0;
 }
