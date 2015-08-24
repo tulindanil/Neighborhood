@@ -12,7 +12,7 @@ float getTemperature()
     char tmpData[6];   // Temp C * 1000 reported by device
     read(FileDescriptor, buf, 256);
     strncpy(tmpData, strstr(buf, "t=") + 2, 5);
-    float CurrentTemp = atof(tmpData, NULL);
+    float CurrentTemp = atof(tmpData);
     CurrentTemp = CurrentTemp / 1000;
     close(FileDescriptor);
     return CurrentTemp;
