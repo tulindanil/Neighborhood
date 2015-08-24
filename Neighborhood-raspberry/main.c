@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         {
             float currentTemp = getTemperature();
             char data[256];
-            sprintf(data, "{ \"temperature\": %f }", currentTemp);
+            sprintf(data, "{ \"value\": %f }", currentTemp);
             parseSendRequest(client, "POST", "/1/classes/Temperature", data, NULL);
         }
     }
