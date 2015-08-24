@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
             sprintf(data, "{ \"value\": %f }", currentTemp);
             parseSendRequest(client, "POST", "/1/classes/Temperature", data, NULL);
         }
-//    }
+    }
     
 //    printf("CHILDPID: %d\n", childpid);
     
