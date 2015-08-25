@@ -34,9 +34,6 @@
     self.valueLabel.text = [NSString stringWithFormat:@"%.2f", value];
     [self.valueLabel sizeToFit];
     
-    self.valueLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.valueLabel.frame), CGRectGetHeight(self.valueLabel.frame));
-    self.predscriptionLabel.frame = CGRectMake(CGRectGetMaxX(self.valueLabel.frame), 0, CGRectGetWidth(self.predscriptionLabel.frame), CGRectGetHeight(self.predscriptionLabel.frame));
-    
     CGPoint center = self.center;
     [self sizeToFit];
     self.center = center;
@@ -44,6 +41,9 @@
 
 - (void)sizeToFit
 {
+    self.valueLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.valueLabel.frame), CGRectGetHeight(self.valueLabel.frame));
+    self.predscriptionLabel.frame = CGRectMake(CGRectGetMaxX(self.valueLabel.frame), 0, CGRectGetWidth(self.predscriptionLabel.frame), CGRectGetHeight(self.predscriptionLabel.frame));
+    
     self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetMaxX(self.predscriptionLabel.frame), CGRectGetHeight(self.predscriptionLabel.frame));
 }
 
@@ -57,6 +57,9 @@
         
         _valueLabel.font = self.font;
         _valueLabel.textColor = [UIColor darkGrayColor];
+        
+        _valueLabel.text = @"--";
+        [_valueLabel sizeToFit];
     }
     return _valueLabel;
 }
