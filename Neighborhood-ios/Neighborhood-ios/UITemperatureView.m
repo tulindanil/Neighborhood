@@ -31,7 +31,7 @@
 {
     _value = value;
     
-    self.valueLabel.text = [[NSNumber numberWithFloat:value] stringValue];
+    self.valueLabel.text = [NSString stringWithFormat:@"%.2f", value];
     [self.valueLabel sizeToFit];
     
     self.valueLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.valueLabel.frame), CGRectGetHeight(self.valueLabel.frame));
