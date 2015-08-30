@@ -5,6 +5,7 @@ temperatureClassName = 'Temperature'
 
 class Hardware:
 
+    @staticmethod
     def getTemperature():
 
         filepath = '/sys/devices/w1_bus_master1/28-0000052c4b73/w1_slave'
