@@ -12,6 +12,7 @@ if __name__ == '__main__':
     data = f.read()
 
     print data
+    sys.sleep(1)
     print data
 
 #    connection = httplib.HTTPSConnection('api.parse.com', 443)
