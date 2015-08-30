@@ -8,7 +8,11 @@
 
 #import "UIDiagramView.h"
 
-@interface UIDiagramView ()
+#import <BEMSimpleLineGraph/BEMSimpleLineGraphView.h>
+
+@interface UIDiagramView () <BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate>
+
+@property (nonatomic, strong) BEMSimpleLineGraphView *lineGraphView;
 
 @property (nonatomic, strong) UIColor *topColor;
 @property (nonatomic, strong) UIColor *bottomColor;
@@ -42,6 +46,7 @@
     [super didMoveToSuperview];
     
     [self addSubview:self.titleLabel];
+    [self addSubview:self.lineGraphView];
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.bounds;
@@ -51,6 +56,79 @@
     
     self.layer.cornerRadius = 10.0f;
 }
+
+#pragma mark - BEMSimpleLineGraphView
+
+- (BEMSimpleLineGraphView *)lineGraphView
+{
+    if (!_lineGraphView)
+    {
+        _lineGraphView = [[BEMSimpleLineGraphView alloc] initWithFrame:CGRectMake(10.0f, 5.0f + CGRectGetMaxY(self.titleLabel.frame), CGRectGetWidth(self.frame) - 20.0f, CGRectGetHeight(self.frame) - (10.0f + CGRectGetMaxY(self.titleLabel.frame)))];
+        
+        _lineGraphView.delegate = self;
+        _lineGraphView.dataSource = self;
+        
+        _lineGraphView.enableBezierCurve = YES;
+        
+        _lineGraphView.enableReferenceXAxisLines = YES;
+        _lineGraphView.enableReferenceYAxisLines = YES;
+        
+        _lineGraphView.enableYAxisLabel = YES;
+        _lineGraphView.enableXAxisLabel = YES;
+
+        _lineGraphView.colorTop = [UIColor clearColor];
+        _lineGraphView.colorBottom = [UIColor clearColor];
+        
+        _lineGraphView.colorYaxisLabel = [UIColor whiteColor];
+        _lineGraphView.colorXaxisLabel = [UIColor whiteColor];
+        
+//        _lineGraphView.animationGraphEntranceTime = 4.2f;
+        
+//        _lineGraphView.alphaTop = .0f;
+//        _lineGraphView.alphaBottom = .0f;
+    }
+    return _lineGraphView;
+}
+
+- (void)reload
+{
+    [self.lineGraphView reloadGraph];
+}
+
+#pragma mark - BEMSimpleLineGraphDataSource
+
+- (NSInteger)numberOfPointsInLineGraph:(BEMSimpleLineGraphView *)graph
+{
+    return 7;
+}
+
+- (CGFloat)lineGraph:(BEMSimpleLineGraphView *)graph valueForPointAtIndex:(NSInteger)index
+{
+    return (arc4random() % 50)/5 + 23;
+}
+
+- (nullable NSString *)lineGraph:(nonnull BEMSimpleLineGraphView *)graph labelOnXAxisForIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+            return @"12 AM";
+            break;
+            
+        case 7/2:
+            return @"12 PM";
+            break;
+            
+        case 6:
+            return @"12 AM";
+            break;
+            
+        default:
+            return @"";
+            break;
+    }
+}
+
+#pragma mark - BEMSimpleLineGraphDelegate
 
 #pragma mark - TitleLabel
 

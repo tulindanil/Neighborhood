@@ -11,6 +11,15 @@
 
 #import <Parse/Parse.h>
 
+@implementation UIView (Frame)
+
+- (void)printFrame
+{
+    NSLog(@"origin - %f, size - %f", self.frame.origin.y, self.frame.size.height);
+}
+
+@end
+
 @interface ViewController () <UIDiagramViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -29,21 +38,24 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self.view printFrame];
+    
     UILabel *label = [[UILabel alloc] init];
     label.text = @"neighborhood";
     label.font = [UIFont fontWithName:@"SwistblnkMonthoers" size:32.0f];
     label.adjustsFontSizeToFitWidth = YES;
     [label sizeToFit];
     
-    for (NSString* family in [UIFont familyNames])
-    {
-        NSLog(@"%@", family);
-        
-        for (NSString* name in [UIFont fontNamesForFamilyName:family])
-        {
-            NSLog(@"  %@", name);
-        }
-    }
+    
+//    for (NSString* family in [UIFont familyNames])
+//    {
+//        NSLog(@"%@", family);
+//        
+//        for (NSString* name in [UIFont fontNamesForFamilyName:family])
+//        {
+//            NSLog(@"  %@", name);
+//        }
+//    }
     
     self.navigationItem.titleView = label;
 //    self.navigationItem.rightBarButtonItem = self.refreshBarButtonItem;
@@ -53,6 +65,8 @@
 {
     [super viewWillAppear:animated];
     [self.view addSubview:self.scrollView];
+    
+    [self.view printFrame];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -60,9 +74,9 @@
     [super viewDidAppear:animated];
     self.scrollView.delegate = self;
     
-    self.scrollView.contentSize = CGSizeMake(320, 1000);
-    self.scrollView.frame = self.view.bounds;
+    self.scrollView.contentSize = self.scrollView.bounds.size;//CGSizeMake(320, 1000);
     
+    [self.view printFrame];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
         
@@ -92,6 +106,9 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+    
+    [self.view printFrame];
+    [self.scrollView printFrame];
 }
 
 #pragma mark - scrollView
@@ -101,7 +118,7 @@
     if (!_scrollView)
     {
         _scrollView = [[UIScrollView alloc] init];
-//        _scrollView.frame = self.view.bounds;
+        _scrollView.frame = self.view.bounds;
         _scrollView.contentSize = self.view.bounds.size;
         _scrollView.alwaysBounceVertical = YES;
         _scrollView.showsVerticalScrollIndicator = YES;
@@ -130,6 +147,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [self.view printFrame];
+    
     CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
     CGFloat navigationBarContentHeight = CGRectGetHeight(navigationBarFrame) - CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
     CGFloat framePercentageHidden = ((CGRectGetHeight([UIApplication sharedApplication].statusBarFrame) - navigationBarFrame.origin.y) / CGRectGetHeight(navigationBarFrame));
@@ -185,6 +204,7 @@
         item.customView.alpha = alpha;
     }];
     
+    self.navigationItem.titleView.alpha = alpha;
     self.navigationController.navigationBar.tintColor = [self.navigationController.navigationBar.tintColor colorWithAlphaComponent:alpha];
 }
 
