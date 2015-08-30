@@ -13,7 +13,7 @@ class Hardware:
         data = f.read()
         f.close()
 
-        return data.find('t=')[2]
+        return data[data.find('t=')+2]
 
 
 if __name__ == '__main__':
