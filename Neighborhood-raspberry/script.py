@@ -7,7 +7,7 @@ temperatureClassName = 'Temperature'
 
 if __name__ == '__main__':
 
-    filepath = '/sys/devices/w1_bus_master1/28-0000052c4b73'
+    filepath = '/sys/devices/w1_bus_master1/28-0000052c4b73/w1_slave'
     f = open(filepath, 'r')
 
     print f
