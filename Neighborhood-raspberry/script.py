@@ -57,10 +57,13 @@ class Daemon:
     def start(self):
         
         try:
+            
             pf = file(self.pidfile,'r')
             pid = int(pf.read().strip())
             pf.close()
+        
         except IOError:
+            
             pid = None
 
         if pid:
@@ -68,7 +71,7 @@ class Daemon:
             sys.stderr.write(message % self.pidfile)
             sys.exit(1)
         
-        self.daemonize()
+#        self.daemonize()
         self.run()
 
     def stop(self):
