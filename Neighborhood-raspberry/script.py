@@ -1,5 +1,4 @@
-import json, httplib
-import time
+import json, httplib, time, logging
 
 temperatureClassName = 'Temperature'
 
@@ -134,12 +133,14 @@ class Daemon:
             pid = None
 
         if not pid:
-            print 'Daemon is running'
+            print 'Daemon is not running'
             return
                 
-        print 'Daemon is not running'
+        print 'Daemon is running'
 
     def run(self):
+
+        logging.info('Started main loop')
 
         worker = ParseWorker()
         previousValue = worker.getLastTemperature()
@@ -168,7 +169,6 @@ class hardware:
 class ParseWorker:
 
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
-    connection
 
     def __init__(self):
         
@@ -177,24 +177,36 @@ class ParseWorker:
 
     def pushTemperatureValue(self, value):
         
-        self.connection.request('POST', '/1/classes/' + temperatureClassName, json.dumps( {'value': value}), self.tail)
-        self.connection.getresponse()
+        try:
+            
+            self.connection.request('POST', '/1/classes/' + temperatureClassName, json.dumps( {'value': value}), self.tail)
+            self.connection.getresponse().read()
+
+        except Exception as e:
+            
+            logging.warning(e)
 
     def getLastTemperature(self):
         
         self.connection.request('GET', '/1/classes' + temperatureClassName, '', self.tail)
         result = json.loads(self.connection.getresponse().read())
         try:
+            
             array = result['results']
             if len(array):
                 return array[0]['value']
-        except:
+
+        except Exception as e:
+            
+            logging.warning(e)
             return 0
 
 if __name__ == '__main__':
 
     daemon = Daemon('/tmp/neighborhood.pid')
-    daemon.run()
+    
+    logging.basicConfig(format = '%(levelname)s:%(message)s', level = logging.INFO, filename = '/home/pi/neighbourhood.log')
+    
     if len(sys.argv) == 2:
         
         if 'start' == sys.argv[1]:
