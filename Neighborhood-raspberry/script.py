@@ -71,7 +71,7 @@ class Daemon:
             sys.stderr.write(message % self.pidfile)
             sys.exit(1)
         
-#        self.daemonize()
+        self.daemonize()
         self.run()
 
     def stop(self):
@@ -138,12 +138,14 @@ class ParseWorker:
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
     connection = httplib.HTTPSConnection('api.parse.com', 443)
 
-    def __init__(self):
-
-        self.connection.connect()
+#    def __init__(self):
+#
+#        self.connection.connect()
 
     def pushTemperatureValue(self, value):
 
+        self.connection = httplib.HTTPSConnection('api.parse.com', 443)
+        self.connection.connect()
         self.connection.request('POST', '/1/classes/' + temperatureClassName, json.dumps( {'value': value}), self.tail)
 
 
