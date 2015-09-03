@@ -183,7 +183,7 @@ class ParseWorker:
     def getLastTemperature(self):
         
         self.connection.request('GET', '/1/classes' + temperatureClassName, '', self.tail)
-        result = json.loads(connection.getresponse().read())
+        result = json.loads(self.connection.getresponse().read())
         array = result['results']
         if len(array):
             return array[0]['value']
