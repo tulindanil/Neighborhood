@@ -146,7 +146,7 @@ class Daemon:
     
         while 1:
             
-            newTemp = hardware.getTemperature()
+            newTemp = worker.getLastTemperature()
 
             if abs(newTemp - temp) > 0.5:
                 worker.pushTemperatureValue(newTemp)
