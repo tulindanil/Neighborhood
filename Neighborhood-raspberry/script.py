@@ -148,7 +148,8 @@ class Daemon:
             
             newTemp = worker.getLastTemperature()
 
-            print str(newTemp) + ' ' + str(temp)
+            print newTemp
+            print temp
 
             if abs(newTemp - temp) > 0.5:
                 worker.pushTemperatureValue(newTemp)
