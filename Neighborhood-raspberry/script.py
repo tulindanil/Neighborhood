@@ -20,11 +20,10 @@ class ParseWorker:
     parseapi = 'api.parse.com'
 
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
-    connection
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
 
     def __init__(self):
 
-        self.connection = httplib.HTTPSConnection('api.parse.com', 443)
         self.connection.connect()
 
     def pushTemperatureValue(self, value):
