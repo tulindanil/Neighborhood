@@ -168,10 +168,8 @@ class hardware:
 
 class ParseWorker:
 
-    parseApiHttp = 'api.parse.com'
-
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
-    connection = httplib.HTTPSConnection(self.parseApiHttp, 443)
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
 
     def __init__(self):
 
