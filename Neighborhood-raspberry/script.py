@@ -144,8 +144,6 @@ class Daemon:
         worker = ParseWorker()
         previousValue = worker.getLastTemperature()
         
-        print str(value) + ' ' + str(previousValue)
-        
         while 1:
             
             value = hardware.getTemperature()
@@ -170,10 +168,11 @@ class hardware:
 class ParseWorker:
 
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
-    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection
 
     def __init__(self):
-
+        
+        self.connection =  = httplib.HTTPSConnection('api.parse.com', 443)
         self.connection.connect()
 
     def pushTemperatureValue(self, value):
