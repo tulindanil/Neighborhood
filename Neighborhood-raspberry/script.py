@@ -24,7 +24,7 @@ class ParseWorker:
 
     def __init__(self):
 
-        connection = httplib.HTTPSConnection('api.parse.com', 443)
+        self.connection = httplib.HTTPSConnection('api.parse.com', 443)
         self.connection.connect()
 
     def pushTemperatureValue(self, value):
