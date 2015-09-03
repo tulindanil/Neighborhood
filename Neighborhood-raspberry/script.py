@@ -144,7 +144,7 @@ class Daemon:
         worker = ParseWorker()
         previousValue = worker.getLastTemperature()
         
-        print str(newTemp) + ' ' + str(temp)
+        print str(value) + ' ' + str(previousValue)
         
         while 1:
             
