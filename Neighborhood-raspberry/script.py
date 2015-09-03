@@ -118,6 +118,8 @@ class Daemon:
             if abs(newTemp - temp) > 0.5:
                 worker.pushTemperatureValue(newTemp)
 
+            temp = newTemp
+
 
 class hardware:
     
