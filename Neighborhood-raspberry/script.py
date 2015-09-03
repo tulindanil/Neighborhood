@@ -92,6 +92,7 @@ class Daemon:
             pf.close()
         
         except IOError:
+            
             pid = None
 
         if not pid:
@@ -119,6 +120,24 @@ class Daemon:
         
         self.stop()
         self.start()
+
+    def status(self):
+
+        try:
+    
+            pf = file(self.pidfile,'r')
+            pid = int(pf.read().strip())
+            pf.close()
+        
+        except IOError:
+            
+            pid = None
+
+        if not pid:
+            print 'Daemon is running'
+            return
+                
+        print 'Daemon is not running'
 
     def run(self):
 
@@ -152,22 +171,19 @@ class ParseWorker:
     parseApiHttp = 'api.parse.com'
 
     tail = {'X-Parse-Application-Id': 'VOB4wXj2mGOjJaqzdhkM701n2ahTSRMqZW6QQ8XU', 'X-Parse-REST-API-Key': 'v7WQplcOjunw6bTEM4P73k8P4HJqeiNenDxggrtw', 'Content-Type': 'application/json'}
-    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection = httplib.HTTPSConnection(self.parseApiHttp, 443)
 
-#    def __init__(self):
-#
-#        self.connection.connect()
+    def __init__(self):
+
+        self.connection.connect()
 
     def pushTemperatureValue(self, value):
-
-        self.connection = httplib.HTTPSConnection(self.parseApiHttp, 443)
-        self.connection.connect()
+        
         self.connection.request('POST', '/1/classes/' + temperatureClassName, json.dumps( {'value': value}), self.tail)
+        self.connection.getresponse()
 
     def getLastTemperature(self):
-
-        self.connection = httplib.HTTPSConnection(self.parseApiHttp, 443)
-        self.connection.connect()
+        
         self.connection.request('GET', '/1/classes' + temperatureClassName, '', self.tail)
         result = json.loads(connection.getresponse().read())
         array = result['results']
@@ -189,6 +205,9 @@ if __name__ == '__main__':
         elif 'restart' == sys.argv[1]:
             daemon.restart()
         
+        elif 'status' == sys.argv[1]:
+            daemon.status()
+        
         else:
             print "Unknown command"
             sys.exit(2)
@@ -197,7 +216,7 @@ if __name__ == '__main__':
 
     else:
         
-        print "usage: %s start|stop|restart" % sys.argv[0]
+        print "usage: %s start|stop|restart|status" % sys.argv[0]
         sys.exit(2)
 
 
