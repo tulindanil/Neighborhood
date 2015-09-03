@@ -184,9 +184,10 @@ class ParseWorker:
         
         self.connection.request('GET', '/1/classes' + temperatureClassName, '', self.tail)
         result = json.loads(self.connection.getresponse().read())
-        array = result['results']
-        if len(array):
-            return array[0]['value']
+        try:
+            array = result['results']
+            if len(array):
+                return array[0]['value']
 
 if __name__ == '__main__':
 
