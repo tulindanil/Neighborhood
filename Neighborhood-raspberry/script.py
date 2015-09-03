@@ -32,10 +32,6 @@ class ParseWorker:
 
 
 if __name__ == '__main__':
-    
-    while 1:
-        print hardware.getTemperature()
-        time.sleep(2)
 
     worker = ParseWorker()
     worker.pushTemperatureValue(hardware.getTemperature())
