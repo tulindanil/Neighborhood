@@ -188,11 +188,13 @@ class ParseWorker:
             array = result['results']
             if len(array):
                 return array[0]['value']
+        except:
+            return 0
 
 if __name__ == '__main__':
 
     daemon = Daemon('/tmp/neighborhood.pid')
-    
+    daemon.run()
     if len(sys.argv) == 2:
         
         if 'start' == sys.argv[1]:
