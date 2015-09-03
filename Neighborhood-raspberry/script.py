@@ -145,10 +145,14 @@ class Daemon:
         worker = ParseWorker()
         previousValue = worker.getLastTemperature()
         
+        logging.info('Last temperature was: ' + str(previousValue))
+        
         while 1:
             
             value = hardware.getTemperature()
-
+            
+            logging.debug('value - ' + str(value) + ' previous value - ' + str(previousValue))
+            
             if abs(previousValue - value) > 0.5:
                 previousValue = value
                 worker.pushTemperatureValue(value)
@@ -188,10 +192,12 @@ class ParseWorker:
 
     def getLastTemperature(self):
         
-        self.connection.request('GET', '/1/classes' + temperatureClassName, '', self.tail)
+        self.connection.request('GET', '/1/classes/' + temperatureClassName, '', self.tail)
         result = json.loads(self.connection.getresponse().read())
+        
+        logging.debug('Retrived: ' + str(result))
+        
         try:
-            
             array = result['results']
             if len(array):
                 return array[0]['value']
@@ -205,8 +211,13 @@ if __name__ == '__main__':
 
     daemon = Daemon('/tmp/neighborhood.pid')
     
-    logging.basicConfig(format = '%(levelname)s:%(message)s', level = logging.INFO, filename = '/home/pi/neighbourhood.log')
+    logfile = '/home/pi/neighbourhood.log'
     
+    if os.path.exists(logfile):
+        os.remove(logfile)
+    
+    logging.basicConfig(format = '%(levelname)s:%(asctime)s:%(message)s' ,level = logging.INFO, filename = logfile)
+
     if len(sys.argv) == 2:
         
         if 'start' == sys.argv[1]:
