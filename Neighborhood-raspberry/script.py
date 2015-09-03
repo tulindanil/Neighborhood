@@ -142,19 +142,17 @@ class Daemon:
     def run(self):
 
         worker = ParseWorker()
-        temp = 0
-    
+        previousValue = worker.getLastTemperature()
+        
+        print str(newTemp) + ' ' + str(temp)
+        
         while 1:
             
-            newTemp = worker.getLastTemperature()
+            value = hardware.getTemperature()
 
-            print newTemp
-            print temp
-
-            if abs(newTemp - temp) > 0.5:
-                worker.pushTemperatureValue(newTemp)
-
-            temp = newTemp
+            if abs(previousValue - value) > 0.5:
+                previousValue = value
+                worker.pushTemperatureValue(value)
 
 
 class hardware:
